@@ -180,11 +180,15 @@ var LocationModel = function(data) {
         icon: defaultIcon
     });
 
-    // mark Markers for each location on map and extend its bounderies
+    // mark Markers for each location on map and extend its bounderies corresponds with filter search
     self.showMarkers = ko.computed(function() {
+        if (self.visible() === true) {
             self.marker.setMap(map);
             bounds.extend(self.marker.position);
             map.fitBounds(bounds);
+        } else {
+            self.marker.setMap(null);
+        }
     });
 
     // Whenever user clicks the marker, it will popup infowindow and also bounce
