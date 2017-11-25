@@ -1,8 +1,8 @@
 var map;
 var infoWindow;
 var bounds;
-var clientID = 'KGVZBQ0ZFUCQED5CLE3GBYYANFPGITOWKLHSTVDB5FQATKW1';
-var clientSecret = '2F0PWVJ0SFULI3WL5FLFTICRZ40DIOFX425OYTPPGTKHCQJJ';
+var clientID = 'LIQH3TMWBAF3ZJMHENCHLT3BVZO1XFLZNAW3YY31LCZOPVTV';
+var clientSecret = 'ZYEU5ROT0BUMXBRL4UPN3R0JVJP1KMEUZVMSYNRCGNPWYKVW';
 
 var locations = [{
     title: 'Seattle Japanese Garden',
@@ -140,8 +140,8 @@ function initMap() {
     ko.applyBindings(new ViewModel());
 }
 
-// Location Model
-var locationModel = function(data) {
+// Set Location Model Maker
+var LocationModel = function(data) {
     var self = this;
 
     this.title = data.title;
@@ -164,9 +164,9 @@ var locationModel = function(data) {
 
     $.getJSON(requestURL).done(function(data) {
         var results = data.response.venues[0];
-        self.street = results.location.formattedAddress[0];
-        self.city = results.location.formattedAddress[1];
-        self.phone = results.contact.formattedPhone;
+        self.street = results.location.formattedAddress[0] || 'No street provided';
+        self.city = results.location.formattedAddress[1] || 'No city provided';
+        self.phone = results.contact.formattedPhone || 'No phone provided';
     }).fail(function() {
         alert('Something went wrong with foursquare. Please Try Again.');
     });
@@ -178,6 +178,13 @@ var locationModel = function(data) {
         title: this.title,
         animation: google.maps.Animation.DROP,
         icon: defaultIcon
+    });
+
+    // mark Markers for each location on map and extend its bounderies
+    self.showMarkers = ko.computed(function() {
+            self.marker.setMap(map);
+            bounds.extend(self.marker.position);
+            map.fitBounds(bounds);
     });
 
     // Whenever user clicks the marker, it will popup infowindow and also bounce
@@ -211,7 +218,7 @@ var ViewModel = function() {
 
     //create marker for each locations and put all of the locations in one array
     locations.forEach(function(location) {
-        self.listOfLocation.push(new locationModel(location));
+        self.listOfLocation.push(new LocationModel(location));
     });
 
     //Filter Search for search bar
@@ -290,7 +297,7 @@ function markerBounce(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
             marker.setAnimation(null);
-        }, 2000);
+        }, 1400);
 }
 
 // This function takes in a COLOR, and then creates a new marker
@@ -308,6 +315,6 @@ function makeMarkerIcon(markerColor) {
 }
 
 // IN CASE GOOGLE MAP IS NOT LOADED, NOTIFY USERS WITH NOTIFICATION
-function googleMapsError() {
+function mapsErrorHandling() {
     alert("Google Maps cannot be loaded. Please Try Again!");
 }

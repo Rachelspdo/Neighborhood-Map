@@ -1,26 +1,24 @@
 html,
 body {
-    letter-spacing: 3px;
+    letter-spacing: 3.5px;
     font-family: "Times New Roman";
     height: 100%;
     margin: 0;
-    margin-left: 1.5vw;
     padding: 0;
     background-color: #F2F7FF;
 }
 
 .container {
     height: 100%;
-    margin-right: 3vw;
+    margin-right: 1vw;
 }
-
 
 h1 {
     margin-top: 2vw;
     margin-bottom: 2vw;
     color: #142F5B;
     font-size: 3vw;
-    margin-left: -33%;
+    margin-left: -15%;
 }
 
 h4 {
@@ -31,8 +29,8 @@ h4 {
 /*STYLE SEARCH BOX*/
 input[type=text] {
     margin-top: 4vw;
-    margin-left: -33%;
-    width: 24.5vw;
+    margin-left: -18%;
+    width: 18vw;
     box-sizing: border-box;
     border: 2px solid #A2BCE5;
     border-radius: 0.5vw;
@@ -47,7 +45,7 @@ input[type=text] {
     position: absolute;
     right: 0;
     left: 22vw;
-    width: 70vw;
+    width: 65vw;
 }
 
 /*STYLE INFOWINDOW AND GOOGLE MAP IMAGE */
@@ -62,22 +60,20 @@ input[type=text] {
 }
 
 p {
-    text-align: justify;
     padding-left: 10%;
     font-size: 1.3vw;
 }
 
 /*STYLE LIST OF LOCATIONS*/
 .list {
-    margin-left: -47%;
+    margin-left: -50%;
 }
 
 ul {
-    margin-right: 5vw;
     text-align: justify;
     list-style-type: none;
     font-size: 1.5vw;
-
+    margin-left: -1.2vw;
 }
 
 li {
