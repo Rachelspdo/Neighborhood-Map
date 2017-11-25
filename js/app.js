@@ -186,6 +186,9 @@ var LocationModel = function(data) {
             self.marker.setMap(map);
             bounds.extend(self.marker.position);
             map.fitBounds(bounds);
+            google.maps.event.addDomListener(window, 'resize', function() {
+            map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+          });
         } else {
             self.marker.setMap(null);
         }
